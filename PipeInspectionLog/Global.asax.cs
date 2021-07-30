@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infrastructure.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,9 @@ namespace PipeInspectionLog
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            DBInicializer db = new DBInicializer();
+            System.Data.Entity.Database.SetInitializer(db);
         }
     }
 }

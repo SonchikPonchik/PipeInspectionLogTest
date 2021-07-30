@@ -30,43 +30,8 @@ namespace PipeInspectionLog.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            //получение записей (эталон)
-            //var a = _unitOfWork.PipeLogRepository.Get(x => x.EndExternalDiameter1 == 21,
-            //    x => x.OrderBy(j => j.InspectionDate), "Diameter");
             DateTime now = DateTime.Now.Date;
-
-            #region Data Converting
-            //long dateTime = DateTime.Now.Ticks;
-            //DateTime myDate = new DateTime(dateTime);
-            //String test = myDate.ToString("MMMM dd, yyyy");
-            #endregion
-
-            #region db
-            //_unitOfWork.DiameterRepository.Insert(new Diameter
-            //{
-            //    Value = 20
-            //});
-            //_unitOfWork.NomenclatureRepository.Insert(new Nomenclature
-            //{
-            //    DiameterDeviation = 10
-            //});
-            //_unitOfWork.Save();
-
-            //_unitOfWork.PipeLogRepository.Insert(new PipeLog
-            //{
-            //    NomenclatureId = 1,
-            //    DiameterId = 1,
-            //    EndExternalDiameter1 = 21,
-            //    EndExternalDiameter2 = 20,
-            //    PipeNumber = "153hk365",
-            //    MaxDiameterDeviation = 1,
-            //    InspectionDate = DateTime.Now
-            //});
-            //_unitOfWork.Save();
-            #endregion
-
             List<PipeLog> data = GetPipeLogByDate(now);
-
 
             return View(data);
         }
@@ -79,13 +44,20 @@ namespace PipeInspectionLog.Controllers
 
         //Post метод главной страницы журнала 
         [HttpPost]
-        public ActionResult Index(DateTime InspectionDate)
+        public ActionResult Index(DateTime? InspectionDate)
         {
-            DateTime date = InspectionDate.Date;
-
+            DateTime date =  CheckDate(InspectionDate);
             List<PipeLog> data = GetPipeLogByDate(date);
 
             return View(data);
+        }
+
+        private DateTime CheckDate(DateTime? inspectionDate)
+        {
+            if (inspectionDate == null)
+                return DateTime.Now.Date;
+            DateTime date = (DateTime)inspectionDate;
+            return date.Date;
         }
 
         //Get страница создания новой записи

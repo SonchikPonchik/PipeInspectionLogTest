@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBInicializer.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="PipeInspectionLogContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
