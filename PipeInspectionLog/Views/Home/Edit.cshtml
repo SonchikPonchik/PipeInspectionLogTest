@@ -1,0 +1,81 @@
+﻿@model PipeInspectionLog.Models.VM.UpdateViewModel
+@{
+    ViewBag.Title = "Изменить запись";
+}
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.PipeLogId)
+    <div class="form-horizontal">
+        <div class="row">
+            <h3>Изменение записи осмотра</h3>
+            @Html.ActionLink("Вернуться к журналу", "Index")
+        </div>
+        <hr />
+        @*Номер трубы*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.PipeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PipeNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PipeNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Целевой диаметр*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.DiameterId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("DiameterId", Model.Diameters, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DiameterId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Номенклатура*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.NomenclatureId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("NomenclatureId", Model.Nomenclatures, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NomenclatureId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Диаметр на конце 1*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndExternalDiameter1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndExternalDiameter1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndExternalDiameter1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Диаметр на конце 2*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndExternalDiameter2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndExternalDiameter2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndExternalDiameter2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Центральный диаметр*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.CenterExternalDiameter, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CenterExternalDiameter, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CenterExternalDiameter, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Примечание*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-2">
+                <input type="submit" value="Изменить" class="btn btn-default" />
+            </div>
+            <div class="col-md-offset-2 col-md-6">
+                @Html.ActionLink("Удалить", "Delete", new { id = Model.PipeLogId }, htmlAttributes: new { @class = "btn btn-danger" })
+            </div>
+        </div>
+    </div>
+}

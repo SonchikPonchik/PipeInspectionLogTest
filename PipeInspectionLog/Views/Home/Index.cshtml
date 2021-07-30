@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Core.PipeLog>
+@{
+    ViewBag.Title = "Home Page";
+}
+<h3>Журнал осмотра труб</h3>
+<hr />
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="form-group col-md-offset-2 col-lg-offset-2">
+            <input type="date" id="InspectionDate" name="InspectionDate" value="@DateTime.Now.Date" />
+            <input type="submit" value="Найти дату" class="btn btn-default" />
+
+            @Html.ActionLink("Добавить новую запись", "Create", null,
+            htmlAttributes: new { @class = "col-md-offset-2 col-lg-offset-2" })
+        </div>
+    }
+</div>
+<table class="table" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PipeNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nomenclature.NomenclatureId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diameter.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndExternalDiameter1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndExternalDiameter2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CenterExternalDiameter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxDiameterDeviation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        bool isBigDeviation = Math.Abs(item.MaxDiameterDeviation) > item.Nomenclature.DiameterDeviation;
+        var className = isBigDeviation ? "class=bigDeviation" : "";
+        <tr @className>
+            <td>
+                @Html.DisplayFor(modelItem => item.PipeNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nomenclature.NomenclatureId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Diameter.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndExternalDiameter1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndExternalDiameter2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CenterExternalDiameter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDiameterDeviation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.PipeLogId })
+            </td>
+        </tr>
+    }
+
+</table>
